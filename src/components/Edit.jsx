@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import styled from "styled-components";
 import Input from "./Form/Input";
 const Div = styled.div`
@@ -41,6 +41,7 @@ const CancelBtn = styled(Submit)`
 `;
 
 function Edit({ edit, setEdit, todos, setTodos }) {
+  const useInputRef = useRef(null)
   const [inputText, setText] = useState("");
   useEffect(() => {
     setText(edit.text);
@@ -74,7 +75,9 @@ function Edit({ edit, setEdit, todos, setTodos }) {
       text: "",
     });
   };
-
+  useEffect(() => {
+    useInputRef.current.focus();
+  });
   return (
     <Div>
       <form onSubmit={submitHandler}>
@@ -85,6 +88,7 @@ function Edit({ edit, setEdit, todos, setTodos }) {
           required
           name="todoText"
           onChange={changeHandler}
+          ref={useInputRef}
         />
         <Div2>
           <Submit type="submit">Submit</Submit>
